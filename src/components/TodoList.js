@@ -3,9 +3,13 @@ import TodoItem from "./TodoItem";
 
 export default class TodoList extends React.Component {
 
-    shouldComponentUpdate(nextProps, nextState) {
-        console.log(nextProps)
-        return true
+    handleCheck = (id, checked) => {
+        this.props.onChange(id, checked)
+    }
+
+    handleDelete = (id) => {
+        console.log('TodoList handleDelete ', id)
+        this.props.onDelete(id)
     }
 
     render() {
@@ -13,7 +17,12 @@ export default class TodoList extends React.Component {
         return (
             <ul className="list-group">
                 {items.map((item) => (
-                    <TodoItem item={item} key={item.id} />
+                    <TodoItem 
+                        item={item} 
+                        key={item.id} 
+                        onChange={this.handleCheck} 
+                        onDelete={this.handleDelete}
+                    />
                 ))}
             </ul>
         )
