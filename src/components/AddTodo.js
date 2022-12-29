@@ -1,6 +1,8 @@
 import React from "react";
+import { createTodo } from "../redux/action/todolist";
+import { connect } from "react-redux";
 
-export default class AddTodo extends React.Component {
+class AddTodo extends React.Component {
     constructor() {
         super()
         this.state = {
@@ -16,7 +18,7 @@ export default class AddTodo extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault() // form works with reloading,  preventDefault will stop reloading
-        this.props.onAddTodo(this.state.title)
+        this.props.createTodo(this.state.title)
         this.setState({
             title: ''
         })
@@ -50,3 +52,10 @@ export default class AddTodo extends React.Component {
         )
     }
 }
+
+const mapStateToProps = null
+const mapDispatchToProps = {
+    createTodo
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddTodo);
