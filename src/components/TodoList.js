@@ -1,30 +1,27 @@
 import React from "react";
 import TodoItem from "./TodoItem";
+import { connect } from "react-redux";
 
-export default class TodoList extends React.Component {
-
-    handleCheck = (id, checked) => {
-        this.props.onChange(id, checked)
-    }
-
-    handleDelete = (id) => {
-        console.log('TodoList handleDelete ', id)
-        this.props.onDelete(id)
-    }
+class TodoList extends React.Component {
 
     render() {
-        const {items} = this.props
+        const {todolist} = this.props
+
         return (
             <ul className="list-group">
-                {items.map((item) => (
+                {todolist.map((item) => (
                     <TodoItem 
-                        item={item} 
-                        key={item.id} 
-                        onChange={this.handleCheck} 
-                        onDelete={this.handleDelete}
+                        item={item}
+                        key={item.id}
                     />
                 ))}
             </ul>
         )
     }
 }
+
+const mapStateToProps = state => ({
+    todolist: state.todos.todolist
+})
+
+export default connect(mapStateToProps, null)(TodoList)

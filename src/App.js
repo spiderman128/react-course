@@ -1,11 +1,32 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import AddTodo from './components/AddTodo';
-// import TodoList from './components/TodoList';
+import TodoList from './components/TodoList';
 import store from './redux/store';
 import './App.css';
 
+function after3Sec(time1, success) {
+  return new Promise((resolve, reject) => { // used with asynchronous function
+      setTimeout(() => {
+        if(success)
+          resolve('success', 'yyy')
+        else 
+          reject('error', 'xxx')
+      }, time1)
+  })
+}
+
 class App extends React.Component {
+
+  componentDidMount() {
+    after3Sec(3000, false)
+      .then(data => {
+        console.log(data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
 
   render () {
     
@@ -18,11 +39,7 @@ class App extends React.Component {
             <AddTodo />
           </div>
           <div className='mt-3'>
-            {/* <TodoList 
-              items={todolist}
-              onChange={this.handleChange}
-              onDelete={this.handleDelete}
-            /> */}
+            <TodoList />
           </div>
         </div>
       </Provider>

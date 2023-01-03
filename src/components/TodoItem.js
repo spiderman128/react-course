@@ -1,15 +1,16 @@
 import React from "react";
+import { connect } from "react-redux";
+import { updateTodo, deleteTodo } from "../redux/action/todolist";
 
-export default class TodoItem extends React.Component {
+class TodoItem extends React.Component {
 
     handleChange = (event) => {
         const checked = event.target.checked
-        this.props.onChange(this.props.item.id, checked)
+        this.props.updateTodo(this.props.item.id, checked)
     }
 
     handleDelete = () => {
-        console.log('TodoItem handleDelete')
-        this.props.onDelete(this.props.item.id)
+        this.props.deleteTodo(this.props.item.id)
     }
 
     render () {
@@ -37,3 +38,10 @@ export default class TodoItem extends React.Component {
         )
     }
 }
+
+const mapDispatchToProps = {
+    updateTodo: updateTodo,
+    deleteTodo: deleteTodo
+}
+
+export default connect(null, mapDispatchToProps)(TodoItem)
